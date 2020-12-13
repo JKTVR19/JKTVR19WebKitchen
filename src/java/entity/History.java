@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Melnikov
+ * @author Juri
  */
 @Entity
 public class History implements Serializable{

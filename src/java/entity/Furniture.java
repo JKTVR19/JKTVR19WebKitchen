@@ -14,7 +14,7 @@ import javax.persistence.Id;
 
 /**
  *
- * @author Melnikov
+ * @author Juri
  */
 @Entity
 public class Furniture implements Serializable{

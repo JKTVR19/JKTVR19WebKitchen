@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 
 /**
  *
- * @author Melnikov
+ * @author Juri
  */
 @Entity
 public class User implements Serializable{
