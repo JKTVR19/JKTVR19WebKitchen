@@ -22,20 +22,24 @@ public class Furniture implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String author;
+    private String color;
+    private String size;
     private Integer publishedYear;
+    
 
     public Furniture() {
     }
 
-    public Furniture(String name, String author, Integer publishedYear) {
+    public Furniture(String name, String color, String size, Integer publishedYear) {
         this.name = name;
-        this.author = author;
+        this.color = color;
+        this.size = size;
         this.publishedYear = publishedYear;
     }
-    public Furniture(String name, String author, String publishedYear) {
+    public Furniture(String name, String color, String size, String publishedYear) {
         this.name = name;
-        this.author = author;
+        this.color = color;
+        this.size = size;
         setPublishedYear(publishedYear);
     }
 
@@ -47,13 +51,21 @@ public class Furniture implements Serializable{
         this.name = name;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getColor() {
+        return color;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setColor(String color) {
+        this.color = color;
     }
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }    
+    
 
     public Integer getPublishedYear() {
         return publishedYear;
@@ -75,9 +87,10 @@ public class Furniture implements Serializable{
 
     @Override
     public String toString() {
-        return "Book{" 
+        return "Furniture{" 
                 + "name=" + name 
-                + ", author=" + author 
+                + ",color=" +color
+                + ",size=" +size
                 + ", publishedYear=" + publishedYear 
                 + '}';
     }
@@ -86,7 +99,8 @@ public class Furniture implements Serializable{
     public int hashCode() {
         int hash = 3;
         hash = 97 * hash + Objects.hashCode(this.name);
-        hash = 97 * hash + Objects.hashCode(this.author);
+        hash = 97 * hash + Objects.hashCode(this.color);
+        hash = 97 * hash + Objects.hashCode(this.size);
         hash = 97 * hash + Objects.hashCode(this.publishedYear);
         return hash;
     }
@@ -106,9 +120,12 @@ public class Furniture implements Serializable{
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (!Objects.equals(this.author, other.author)) {
+        if (!Objects.equals(this.color, other.color)) {
             return false;
         }
+        if (!Objects.equals(this.size, other.size)) {
+            return false;
+        }        
         if (!Objects.equals(this.publishedYear, other.publishedYear)) {
             return false;
         }

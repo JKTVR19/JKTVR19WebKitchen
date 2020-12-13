@@ -14,10 +14,11 @@
     </head>
     <body>
         <h1>List of Furnitures:</h1>
+        <a href="index.jsp">Home</a><br>
         <ol>
             <c:forEach var="furniture" items="${listFurnitures}" varStatus="status">
                 <li>
-                    ${furniture.name}. ${furniture.author}. ${furniture.publishedYear}
+                    ${furniture.name}. ${furniture.color}. ${furniture.size} ${furniture.publishedYear}
                 </li>
             </c:forEach>
         </ol>

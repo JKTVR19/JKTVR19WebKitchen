@@ -17,9 +17,10 @@
         <br>
         <a href="index.jsp">Home</a><br>
         <form action="createBuyer" method="POST">
-            Buyer first name: <input type="text" name="firstname" value="${firstname}"><br>
-            Buyer last name: <input type="text" name="lastname" value="${lastname}"><br>
+            Buyers first name: <input type="text" name="firstname" value="${firstname}"><br>
+            Buyers last name: <input type="text" name="lastname" value="${lastname}"><br>
             Phone number: <input type="text" name="phone" value="${phone}"><br>
+            Buyers wallet: <input type="text" name="wallet" value="${wallet}"><br>
             <input type="submit" name="submit" value="Add Buyer">
         </form>
     </body>

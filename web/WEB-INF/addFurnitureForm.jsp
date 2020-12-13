@@ -18,7 +18,8 @@
         <a href="index.jsp">Home</a><br>
         <form action="createFurniture" method="POST">
             Furniture name: <input type="text" name="name" value="${name}"><br>
-            Furniture color: <input type="text" name="author" value="${author}"><br>
+            Furniture color: <input type="text" name="color" value="${color}"><br>
+            Furniture size: <input type="text" name="size" value="${size}"><br>
             Furniture price: <input type="text" name="publishedYear" value="${publishedYear}"><br>
             <input type="submit" name="submit" value="Add Furniture">
         </form>

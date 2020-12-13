@@ -15,23 +15,26 @@
   </head>
   <body>
     <h1>Give out a furniture</h1>
-    <form action="takeOnFurniture" method="POST">
+    <a href="index.jsp">Home</a><br>
         <p>Select furniture:</p>
         <select name="furnitureId">
           <option value="">Select furniture</option>
               <c:forEach var="furniture" items="${listFurnitures}" varStatus="status">
-                  <option value="${furniture.id}">${bfurniture.name}. ${furniture.author}. ${furniture.publishedYear}</option>
+                  <option value="${furniture.id}">${furniture.name}. ${furniture.color}. ${furniture.size} ${furniture.publishedYear}</option>
               </c:forEach>
         </select>
         <p>Select buyer:</p>
         <select name="buyerId">
           <option value="">Select buyer</option>
               <c:forEach var="buyer" items="${listBuyers}" varStatus="status">
-                  <option value="${buyer.id}">${buyer.firstname} ${buyer.lastname}. ${buyer.phone}</option>
+                  <option value="${buyer.id}">${buyer.firstname} ${buyer.lastname}. ${buyer.phone}. ${buyer.wallet}</option>
               </c:forEach>
         </select>
         <br><br>
         <input type="submit" value="Give out a furniture">
-    </form>
+        <!------------emptying the buyers wallet---->
+        
+       
+    
   </body>
 </html>

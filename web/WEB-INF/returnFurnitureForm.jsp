@@ -15,6 +15,7 @@
   </head>
   <body>
     <h1>Return furniture:</h1>
+    <a href="index.jsp">Home</a><br>
     <form action="returnFurniture" method="POST">
         <select name="historyId">
           <option value="">Choose returned furniture</option>

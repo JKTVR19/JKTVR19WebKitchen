@@ -15,10 +15,14 @@
     </head>
     <body>
         <h1>List of Buyers:</h1>
+        <a href="index.jsp">Home</a><br>
+                <li>
+                    First Name. Last Name. Phone number. Wallet cash
+                </li>
         <ol>
             <c:forEach var="buyer" items="${listBuyers}" varStatus="status">
                 <li>
-                    ${buyer.firstname}. ${buyer.lastname}. ${buyer.phone}
+                    ${buyer.firstname}. ${buyer.lastname}. ${buyer.phone}. ${buyer.wallet}
                 </li>
             </c:forEach>
         </ol>

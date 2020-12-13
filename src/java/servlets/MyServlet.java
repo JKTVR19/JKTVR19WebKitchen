@@ -84,19 +84,22 @@ private HistoryFacade historyFacade;
                 break;
             case "/createFurniture":
                 String name = request.getParameter("name");
-                String author = request.getParameter("author");
+                String color = request.getParameter("color");
+                String size = request.getParameter("size");
                 String publishedYear = request.getParameter("publishedYear");
                 if ("".equals(name) || name == null
-                        || "".equals(author) || author == null
+                        || "".equals(color) || color == null
+                        || "".equals(size) || size == null
                         || "".equals(publishedYear) || publishedYear == null){
                     request.setAttribute("name", name);
-                    request.setAttribute("author", author);
+                    request.setAttribute("color", color);
+                    request.setAttribute("size", size);
                     request.setAttribute("publishedYear", publishedYear);
                     request.setAttribute("info", "Fill in all the fields.");
                     request.getRequestDispatcher("/WEB-INF/addFurnitureForm.jsp").forward(request, response); 
                     break;
                 }
-                Furniture furniture = new Furniture(name, author, publishedYear);
+                Furniture furniture = new Furniture(name, color, size, publishedYear);
                 furnitureFacade.create(furniture);
                 request.setAttribute("info", "Furniture\"" +furniture.getName()+ "\" have been added");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -113,17 +116,22 @@ private HistoryFacade historyFacade;
                 String firstname = request.getParameter("firstname");
                 String lastname = request.getParameter("lastname");
                 String phone = request.getParameter("phone");
+                String wallet = request.getParameter("wallet");
+                
                 if ("".equals(firstname) || firstname == null
                         || "".equals(lastname) || lastname == null
-                        || "".equals(phone) || phone == null){
+                        || "".equals(phone) || phone == null
+                        || "".equals(wallet) || wallet == null){
                     request.setAttribute("firstname", firstname);
                     request.setAttribute("lastname", lastname);
                     request.setAttribute("phone", phone);
+                    request.setAttribute("wallet", wallet);
+                    
                     request.setAttribute("info", "Fill in all the fields.");
                     request.getRequestDispatcher("/WEB-INF/addBuyerForm.jsp").forward(request, response); 
                     break;
                 }
-                Buyer buyer = new Buyer(firstname, lastname, phone);
+                Buyer buyer = new Buyer(firstname, lastname, phone, wallet);
                 buyerFacade.create(buyer);
                 request.setAttribute("info", "Buyer\"" +buyer.getFirstname()+" " +buyer.getLastname()+ "\" have been added");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -138,6 +146,12 @@ private HistoryFacade historyFacade;
                 request.setAttribute("listFurnitures", listFurnitures);
                 listBuyers = buyerFacade.findAll();
                 request.setAttribute("listBuyers", listBuyers);
+                //-------------------emptying the buyers wallet------------------
+//                Furniture furniture = new Furniture();
+//                Buyer buyer = new Buyer();
+//                    int wallet = buyer.getWallet()- furniture.getPublishedYear();        
+//                    buyer.setWallet(wallet);
+                //-----------------
                 request.getRequestDispatcher("/WEB-INF/takeOnFurnitureForm.jsp").forward(request, response);
                 break;
             case "/takeOnFurniture":
@@ -206,3 +220,8 @@ private HistoryFacade historyFacade;
     }// </editor-fold>
 
 }
+// <!--
+//int wallet =buyer.getWallet()- furniture.getPrice();        
+//        buyer.setWallet(wallet)
+//-->          
+//<!------------emptying the buyers wallet---->
