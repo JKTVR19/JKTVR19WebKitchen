@@ -26,6 +26,7 @@ public class Furniture implements Serializable{
     private String size;
     private Integer publishedYear;
     
+    
 
     public Furniture() {
     }

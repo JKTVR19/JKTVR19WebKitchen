@@ -27,16 +27,16 @@ public class User implements Serializable{
     private String password;
     private String role;
     @OneToOne
-    private Buyer reader;
+    private Buyer buyer;
 
     public User() {
     }
 
-    public User(String login, String password, String role, Buyer reader) {
+    public User(String login, String password, String role, Buyer buyer) {
         this.login = login;
         this.password = password;
         this.role = role;
-        this.reader = reader;
+        this.buyer = buyer;
     }
 
     public String getRole() {
@@ -64,11 +64,11 @@ public class User implements Serializable{
     }
 
     public Buyer getReader() {
-        return reader;
+        return buyer;
     }
 
-    public void setReader(Buyer reader) {
-        this.reader = reader;
+    public void setReader(Buyer buyer) {
+        this.buyer = buyer;
     }
 
     @Override
@@ -77,8 +77,8 @@ public class User implements Serializable{
                 + "login=" + login 
                 + ", password=" + password 
                 + ", role=" + role 
-                + ", reader=" + reader.getFirstname()
-                + " " + reader.getLastname()
+                + ", buyer=" + buyer.getFirstname()
+                + " " + buyer.getLastname()
                 + '}';
     }
 
@@ -88,7 +88,7 @@ public class User implements Serializable{
         hash = 19 * hash + Objects.hashCode(this.login);
         hash = 19 * hash + Objects.hashCode(this.password);
         hash = 19 * hash + Objects.hashCode(this.role);
-        hash = 19 * hash + Objects.hashCode(this.reader);
+        hash = 19 * hash + Objects.hashCode(this.buyer);
         return hash;
     }
 
@@ -113,7 +113,7 @@ public class User implements Serializable{
         if (!Objects.equals(this.role, other.role)) {
             return false;
         }
-        if (!Objects.equals(this.reader, other.reader)) {
+        if (!Objects.equals(this.buyer, other.buyer)) {
             return false;
         }
         return true;

@@ -28,7 +28,6 @@ import entity.History;
 import entity.Buyer;
 import java.io.IOException;
 import java.util.GregorianCalendar;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -37,7 +36,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import session.FurnitureFacade;
-import session.BuyerFacade;
 import session.HistoryFacade;
 import session.BuyerFacade;
 /**
@@ -58,10 +56,13 @@ import session.BuyerFacade;
     
 })
 public class MyServlet extends HttpServlet {
+    
 @EJB
 private FurnitureFacade furnitureFacade;
+
 @EJB
 private BuyerFacade buyerFacade;
+
 @EJB
 private HistoryFacade historyFacade;
     /**
@@ -77,6 +78,11 @@ private HistoryFacade historyFacade;
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        
+        History history;
+        Buyer buyer;
+        Furniture furniture;
+        
         String path = request.getServletPath();
         switch (path){
             case "/addFurniture":
@@ -99,7 +105,7 @@ private HistoryFacade historyFacade;
                     request.getRequestDispatcher("/WEB-INF/addFurnitureForm.jsp").forward(request, response); 
                     break;
                 }
-                Furniture furniture = new Furniture(name, color, size, publishedYear);
+                furniture = new Furniture(name, color, size, publishedYear);
                 furnitureFacade.create(furniture);
                 request.setAttribute("info", "Furniture\"" +furniture.getName()+ "\" have been added");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -107,7 +113,7 @@ private HistoryFacade historyFacade;
             case "/listFurnitures":
                 List<Furniture> listFurnitures = furnitureFacade.findAll();
                 request.setAttribute("listFurnitures", listFurnitures);
-                request.getRequestDispatcher("listFurnitures.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/listFurnitures.jsp").forward(request, response);
                 break; 
             case "/addBuyer":
                 request.getRequestDispatcher("/WEB-INF/addBuyerForm.jsp").forward(request, response);
@@ -131,7 +137,7 @@ private HistoryFacade historyFacade;
                     request.getRequestDispatcher("/WEB-INF/addBuyerForm.jsp").forward(request, response); 
                     break;
                 }
-                Buyer buyer = new Buyer(firstname, lastname, phone, wallet);
+                buyer = new Buyer(firstname, lastname, phone, wallet);
                 buyerFacade.create(buyer);
                 request.setAttribute("info", "Buyer\"" +buyer.getFirstname()+" " +buyer.getLastname()+ "\" have been added");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -139,7 +145,7 @@ private HistoryFacade historyFacade;
             case "/listBuyers":
                 List<Buyer> listBuyers = buyerFacade.findAll();
                 request.setAttribute("listBuyers", listBuyers);
-                request.getRequestDispatcher("listBuyers.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/listBuyers.jsp").forward(request, response);
                 break;
             case "/takeOnFurnitureForm":
                 listFurnitures = furnitureFacade.findAll();
@@ -159,9 +165,23 @@ private HistoryFacade historyFacade;
                 furniture = furnitureFacade.find(Long.parseLong(furnitureId));
                 String buyerId = request.getParameter("buyerId");
                 buyer = buyerFacade.find(Long.parseLong(buyerId));
-                History history = new History(furniture, buyer, new GregorianCalendar().getTime(), null);
-                historyFacade.create(history);
-                request.setAttribute("info", "the furniture \""+furniture.getName()+"\"was gave out");
+//--------------------------------
+                if (buyer.getWallet() >= furniture.getPublishedYear()) {
+                    buyer.setWallet(buyer.getWallet() - furniture.getPublishedYear());
+                    history = new History(furniture, buyer, new GregorianCalendar().getTime(), null);
+                    buyerFacade.edit(buyer);
+                    historyFacade.create(history);
+                    furnitureFacade.remove(furniture);
+                    request.setAttribute("info", "the furniture \""+furniture.getName()+"\"was gave out");
+                    request.getRequestDispatcher("/index.jsp").forward(request, response);
+                    break;
+                } else if (buyer.getWallet() < furniture.getPublishedYear()) {
+                    request.setAttribute("info", "You don't have enough money");
+                    request.getRequestDispatcher("/index.jsp").forward(request, response);
+                    break;
+                }
+//--------------------------------
+                request.setAttribute("info", "Something went wrong");
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
                 break;
             case "/returnFurnitureForm":
