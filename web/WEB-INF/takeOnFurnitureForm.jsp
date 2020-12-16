@@ -21,7 +21,7 @@
         <select name="furnitureId">
           <option value="">Select furniture</option>
               <c:forEach var="furniture" items="${listFurnitures}" varStatus="status">
-                  <option value="${furniture.id}">Название: ${furniture.name}.  Цвет: ${furniture.color}. Размер: ${furniture.size}. Цена: ${furniture.publishedYear}.</option>
+                  <option value="${furniture.id}">Название: ${furniture.name}.  Цвет: ${furniture.color}. Размер: ${furniture.size}. Цена: ${furniture.publishedYear}. Количество: ${furniture.amount}.</option>
               </c:forEach>
         </select>
         <p>Select buyer:</p>

@@ -93,19 +93,23 @@ private HistoryFacade historyFacade;
                 String color = request.getParameter("color");
                 String size = request.getParameter("size");
                 String publishedYear = request.getParameter("publishedYear");
+                Integer amount = Integer.parseInt(request.getParameter("amount"));
                 if ("".equals(name) || name == null
                         || "".equals(color) || color == null
                         || "".equals(size) || size == null
-                        || "".equals(publishedYear) || publishedYear == null){
+                        || "".equals(publishedYear) || publishedYear == null
+                        || amount < 0){
+                    
                     request.setAttribute("name", name);
                     request.setAttribute("color", color);
                     request.setAttribute("size", size);
+                    request.setAttribute("amount", amount);
                     request.setAttribute("publishedYear", publishedYear);
                     request.setAttribute("info", "Fill in all the fields.");
                     request.getRequestDispatcher("/WEB-INF/addFurnitureForm.jsp").forward(request, response); 
                     break;
                 }
-                furniture = new Furniture(name, color, size, publishedYear);
+                furniture = new Furniture(name, color, size, publishedYear, amount);
                 furnitureFacade.create(furniture);
                 request.setAttribute("info", "Furniture\"" +furniture.getName()+ "\" have been added");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -168,10 +172,15 @@ private HistoryFacade historyFacade;
 //--------------------------------
                 if (buyer.getWallet() >= furniture.getPublishedYear()) {
                     buyer.setWallet(buyer.getWallet() - furniture.getPublishedYear());
+                    furniture.setAmount(furniture.getAmount() - 1);
                     history = new History(furniture, buyer, new GregorianCalendar().getTime(), null);
                     buyerFacade.edit(buyer);
+                    furnitureFacade.edit(furniture);
                     historyFacade.create(history);
-                    furnitureFacade.remove(furniture);
+                    
+                    
+                    
+                    
                     request.setAttribute("info", "the furniture \""+furniture.getName()+"\"was gave out");
                     request.getRequestDispatcher("/index.jsp").forward(request, response);
                     break;

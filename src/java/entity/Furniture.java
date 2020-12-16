@@ -25,25 +25,37 @@ public class Furniture implements Serializable{
     private String color;
     private String size;
     private Integer publishedYear;
+    private Integer amount;
+
     
     
 
-    public Furniture() {
-    }
+    public Furniture() {}
 
-    public Furniture(String name, String color, String size, Integer publishedYear) {
+    public Furniture(String name, String color, String size, Integer publishedYear, Integer amount) {
         this.name = name;
         this.color = color;
         this.size = size;
         this.publishedYear = publishedYear;
+        this.amount = amount;
     }
-    public Furniture(String name, String color, String size, String publishedYear) {
+    public Furniture(String name, String color, String size, String publishedYear, Integer amount) {
         this.name = name;
         this.color = color;
         this.size = size;
         setPublishedYear(publishedYear);
+        this.amount = amount;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    
     public String getName() {
         return name;
     }
@@ -72,6 +84,14 @@ public class Furniture implements Serializable{
         return publishedYear;
     }
 
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+    
     public void setPublishedYear(Integer publishedYear) {
         this.publishedYear = publishedYear;
     }
@@ -98,11 +118,13 @@ public class Furniture implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 3;
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.id);
         hash = 97 * hash + Objects.hashCode(this.name);
         hash = 97 * hash + Objects.hashCode(this.color);
         hash = 97 * hash + Objects.hashCode(this.size);
         hash = 97 * hash + Objects.hashCode(this.publishedYear);
+        hash = 97 * hash + Objects.hashCode(this.amount);
         return hash;
     }
 
@@ -126,22 +148,17 @@ public class Furniture implements Serializable{
         }
         if (!Objects.equals(this.size, other.size)) {
             return false;
-        }        
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
         if (!Objects.equals(this.publishedYear, other.publishedYear)) {
+            return false;
+        }
+        if (!Objects.equals(this.amount, other.amount)) {
             return false;
         }
         return true;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-   
-    
-    
 }

@@ -21,6 +21,7 @@
             Furniture color: <input type="text" name="color" value="${color}"><br>
             Furniture size: <input type="text" name="size" value="${size}"><br>
             Furniture price: <input type="text" name="publishedYear" value="${publishedYear}"><br>
+            Furniture amount: <input type="text" name="amount" value="${amount}"><br>
             <input type="submit" name="submit" value="Add Furniture">
         </form>
     </body>
